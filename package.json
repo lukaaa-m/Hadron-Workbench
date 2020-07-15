@@ -1,0 +1,22 @@
+{
+  "name": "hadron-workbench",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lukaaa-m/Hadron-Workbench.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/lukaaa-m/Hadron-Workbench/issues"
+  },
+  "homepage": "https://github.com/lukaaa-m/Hadron-Workbench#readme",
+  "dependencies": {
+    "plain-draggable": "^2.5.12"
+  }
+}
