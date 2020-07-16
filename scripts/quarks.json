@@ -1,4 +1,4 @@
-"quarks":{
+{"quarks":{
 
 	"up":{
 		"colours": ["red","green","blue"],
@@ -84,5 +84,6 @@
 		"spin": "1/2",
 	},
 
+	}
 }
 	
