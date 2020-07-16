@@ -1,0 +1,88 @@
+"quarks":{
+
+	"up":{
+		"colours": ["red","green","blue"],
+		"mass": "2.2",
+		"charge": "2/3",
+		"spin": "1/2",
+	},
+	
+	"down":{
+		"colours": ["red","green","blue"],
+		"mass": "4.7",
+		"charge": "-1/3",
+		"spin": "1/2",
+	},
+	
+	"charm":{
+		"colours": ["red","green","blue"],
+		"mass": "1280",
+		"charge": "2/3",
+		"spin": "1/2",
+	},
+	
+	"strange":{
+		"colours": ["red","green","blue"],
+		"mass": "96",
+		"charge": "-1/3",
+		"spin": "1/2",
+	},
+	
+	"top":{
+		"colours": ["red","green","blue"],
+		"mass": "173100",
+		"charge": "2/3",
+		"spin": "1/2",
+	},
+	
+	"bottom":{
+		"colours": ["red","green","blue"],
+		"mass": "4180",
+		"charge": "-1/3",
+		"spin": "1/2",
+	},
+	
+	"anti-up":{
+		"colours": ["anti-red","anti-green","anti-blue"],
+		"mass": "2.2",
+		"charge": "-2/3",
+		"spin": "1/2",
+	},
+	
+	"anti-down":{
+		"colours": ["anti-red","anti-green","anti-blue"],
+		"mass": "4.7",
+		"charge": "1/3",
+		"spin": "1/2",
+	},
+	
+	"anti-charm":{
+		"colours": ["anti-red","anti-green","anti-blue"],
+		"mass": "1280",
+		"charge": "-2/3",
+		"spin": "1/2",
+	},
+	
+	"anti-strange":{
+		"colours": ["anti-red","anti-green","anti-blue"],
+		"mass": "96",
+		"charge": "1/3",
+		"spin": "1/2",
+	},
+	
+	"anti-top":{
+		"colours": ["anti-red","anti-green","anti-blue"],
+		"mass": "173100",
+		"charge": "-2/3",
+		"spin": "1/2",
+	},
+	
+	"anti-bottom":{
+		"colours": ["anti-red","anti-green","anti-blue"],
+		"mass": "4180",
+		"charge": "1/3",
+		"spin": "1/2",
+	},
+
+}
+	
