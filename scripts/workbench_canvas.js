@@ -32,9 +32,9 @@ class QuarkTrapezoid{
         this.rot = 0;
 
         this.originVertices = [[-10, 5],
-                         [-6, -5],
-                         [ 6, -5],
-                         [ 10, 5]];
+                               [-6, -5],
+                               [ 6, -5],
+                               [ 10, 5]];
 
         //copy origin vertices
         this.drawnVertices = this.originVertices.valueOf();
@@ -50,9 +50,9 @@ class QuarkTrapezoid{
         
         fill(this.props['colour']);
         beginShape();
-        this.drawnVertices.forEach(coordinate =>{
+        this.drawnVertices.forEach(vertex =>{
             //vertices are defined relative to the true x,y of trapezoid
-            vertex(this.x+coordinate[0],this.y+coordinate[1]);
+            vertex(this.x+vertex[0],this.y+vertex[1]);
         });
         endShape(CLOSE);
 
@@ -83,7 +83,7 @@ class QuarkTrapezoid{
 
             //Add new vertex coordinate to 'new vertices' list
             newVertices.push([transVertMatrix.subset(math.index(0,0)),transVertMatrix.subset(math.index(1,0))]);
-            //console.log('New vertices array: ' + newVertices);
+            console.log('New vertices array: ' + newVertices);
         });
 
         //console.log(this.vertices);
