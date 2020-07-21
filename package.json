@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/lukaaa-m/Hadron-Workbench#readme",
   "dependencies": {
+    "mathjs": "^7.1.0",
     "plain-draggable": "^2.5.12"
   }
 }
