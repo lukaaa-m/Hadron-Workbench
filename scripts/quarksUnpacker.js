@@ -1,5 +1,5 @@
-{
-	{
+quarksPacked = {
+	"up": {
 		"name": "up",
 		"colours": ["red","green","blue"],
 		"mass": "2.2",
@@ -7,7 +7,7 @@
 		"spin": "1/2",
 	},
 	
-	{
+	"down": {
 		"name": "down",
 		"colours": ["red","green","blue"],
 		"mass": "4.7",
@@ -15,7 +15,7 @@
 		"spin": "1/2",
 	},
 	
-	{
+	"charm": {
 		"name": "charm",
 		"colours": ["red","green","blue"],
 		"mass": "1280",
@@ -23,7 +23,7 @@
 		"spin": "1/2",
 	},
 	
-	{
+	"strange": {
 		"name": "strange",
 		"colours": ["red","green","blue"],
 		"mass": "96",
@@ -31,7 +31,7 @@
 		"spin": "1/2",
 	},
 	
-	{
+	"top": {
 		"name": "top",
 		"colours": ["red","green","blue"],
 		"mass": "173100",
@@ -39,7 +39,7 @@
 		"spin": "1/2",
 	},
 	
-	{
+	"bottom": {
 		"name": "bottom",
 		"colours": ["red","green","blue"],
 		"mass": "4180",
@@ -47,53 +47,74 @@
 		"spin": "1/2",
 	},
 	
-	{
+	"anti-up": {
 		"name": "anti-up",
-		"colours": ["anti-red","anti-green","anti-blue"],
+		"colours": ["cyan","magenta","yellow"],
 		"mass": "2.2",
 		"charge": "-2/3",
 		"spin": "1/2",
 	},
 	
-	{
+	"anti-down": {
 		"name": "anti-down",
-		"colours": ["anti-red","anti-green","anti-blue"],
+		"colours": ["cyan","magenta","yellow"],
 		"mass": "4.7",
 		"charge": "1/3",
 		"spin": "1/2",
 	},
 	
-	{
+	"anti-charm": {
 		"name": "anti-charm",
-		"colours": ["anti-red","anti-green","anti-blue"],
+		"colours": ["cyan","magenta","yellow"],
 		"mass": "1280",
 		"charge": "-2/3",
 		"spin": "1/2",
 	},
 	
-	{
-		"name": "anti-strange"
-		"colours": ["anti-red","anti-green","anti-blue"],
+	"anti-strange": {
+		"name": "anti-strange",
+		"colours": ["cyan","magenta","yellow"],
 		"mass": "96",
 		"charge": "1/3",
 		"spin": "1/2",
 	},
 	
-	{
+	"anti-top": {
 		"name": "anti-top",
-		"colours": ["anti-red","anti-green","anti-blue"],
+		"colours": ["cyan","magenta","yellow"],
 		"mass": "173100",
 		"charge": "-2/3",
 		"spin": "1/2",
 	},
 	
-	{
+	"anti-bottom": {
 		"name": "anti-bottom",
-		"colours": ["anti-red","anti-green","anti-blue"],
+		"colours": ["cyan","magenta","yellow"],
 		"mass": "4180",
 		"charge": "1/3",
 		"spin": "1/2",
 	},
 }
 
+function unpackQuarks(quarks){
+	var unpackedQuarks = {};
+
+	//Creates a quark object for every colour of every type of quark - 'up' becomes 'up red', 'up green' etc...
+	for (let [quark, props] of Object.entries(quarksPacked)){
+		props['colours'].forEach(colour =>{
+			unpackedQuarks[`${quark} ${colour}`] = {
+				"name": quark,
+				"colour": colour,
+				"mass": props['mass'],
+				"charge": props['charge'],
+				"spin": props['spin'],
+			}
+		});
+	}
+	return unpackedQuarks;
+}
+	
+quarks = unpackQuarks(quarksPacked);
+
+document.getElementById('quarktestdump').innerHTML = JSON.stringify(quarks);
 	
