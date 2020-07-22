@@ -1,13 +1,12 @@
 class QuarkTrapezoid{
-    constructor(x,y,props){
+    constructor(x,y,dilation,props){
         this.props = props; //name, colour, mass, charge, spin
 
         this.x = x;
         this.y = y;
         
-        this.dilation = 6;
+        this.dilation = dilation;
         this.rot = 0;
-        this.draggable = true;
 
         //These are used for all translations, so that the rotate() and scale() functions *set* those properties, not *add to* those properties (useful for animations, cause I feel like making those myself)
         this.originVertices = [[-10, 5],
