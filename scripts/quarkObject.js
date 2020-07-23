@@ -1,3 +1,5 @@
+const { create } = require("mathjs");
+
 class QuarkTrapezoid{
     constructor(x,y,dilation,props){
         this.props = props; //name, colour, mass, charge, spin
@@ -8,14 +10,25 @@ class QuarkTrapezoid{
         this.dilation = dilation;
         this.rot = 0;
 
+        this.draggable = true;
+        this.isBeingDragged = false;
+        this.dragPointDiffX;
+        this.dragPointDiffY;
+
         //These are used for all translations, so that the rotate() and scale() functions *set* those properties, not *add to* those properties (useful for animations, cause I feel like making those myself)
-        this.originVertices = [[-10, 5],
-                               [-6, -5],
-                               [ 6, -5],
-                               [ 10, 5]];
+        this.originVertices = [[-10,5],
+                               [-6, this.y-5],
+                               [this.x+6, this.y-5],
+                               [this.x+10,this.y+5]];
+        
+        this.originVertices = [createVector(-10,5),
+                               createVector(-6,-5),
+                               createVector(6,-5),
+                               createVector(10,5)];
 
         //Copy origin vertices - these ones are actually drawn
-        this.drawnVertices = this.originVertices.valueOf();
+        this.drawnVecs = [];
+        this.updateDrawnVecs(this.originVertices); //Converts the vertex array to p5 vectors
 
         this.drawTrap();
     }
@@ -23,15 +36,22 @@ class QuarkTrapezoid{
     update(){
         this.rotate(this.rot);
         this.scale(this.dilation);
+        this.checkIfDragged();
+        if(this.isBeingDragged){
+            this.drag();
+        }
+        if(collidePointPoly(mouseX, mouseY, this.drawnVecs)){
+            console.log(`Hovering over ${this.props['name']}`);
+        }
         this.drawTrap();
     }
 
     drawTrap(){
         fill(this.props['colour']);
         beginShape();
-        this.drawnVertices.forEach(vert =>{
+        this.drawnVecs.forEach(vec =>{
             //Vertices are defined relative to the true x,y of trapezoid
-            vertex(this.x+vert[0],this.y+vert[1]);
+            vertex(this.x+vec.x,this.y+vec.y);
         });
         endShape(CLOSE);
     }
@@ -46,10 +66,10 @@ class QuarkTrapezoid{
         var newVertices = []; //Set of new vertices
 
         //Rotate each vertex with rotation matrix
-        this.originVertices.forEach(coordinate =>{
+        this.originVertices.forEach(vert =>{
 
             //Convert vertex position to matrix
-            vertToMatrix = math.matrix([[coordinate[0]],[coordinate[1]]]);
+            vertToMatrix = math.matrix([[vert.x],[vert.y]]);
 
             //Dilate to current size
             transVertMatrix = math.multiply(currentDilationMatrix, vertToMatrix);
@@ -57,10 +77,10 @@ class QuarkTrapezoid{
             transVertMatrix = math.multiply(rotMatrix, transVertMatrix);
 
             //Add new vertex coordinate to 'new vertices' list
-            newVertices.push([transVertMatrix.subset(math.index(0,0)),transVertMatrix.subset(math.index(1,0))]);
+            newVertices.push(createVector(transVertMatrix.subset(math.index(0,0)),transVertMatrix.subset(math.index(1,0))));
         });
 
-        this.drawnVertices = newVertices;
+        this.drawnVecs = newVertices;
     }
 
     scale(factor){
@@ -72,7 +92,7 @@ class QuarkTrapezoid{
         var transVertMatrix; //Translated vertex point as matrix
         var newVertices = []; //Set of new vertices
 
-        this.originVertices.forEach(coordinate =>{
+        this.originVertices.forEach(vert =>{
 
             //Convert vertex position to matrix
             vertToMatrix = math.matrix([[coordinate[0]],[coordinate[1]]]);
@@ -86,6 +106,21 @@ class QuarkTrapezoid{
             newVertices.push([transVertMatrix.subset(math.index(0,0)),transVertMatrix.subset(math.index(1,0))]);
         });
 
-        this.drawnVertices = newVertices;
+        this.updateDrawnVecs(newVertices);
+    }
+
+    checkIfDragged(){
+        if(mouseIsPressed && collidePointPoly(mouseX, mouseY, this.drawnVecs)){
+            console.log(`Clicked on trapezoid ${this.props['name']} ${this.props['colour']}`);
+            this.dragPointDiffX = mouseX - this.x;
+            this.dragPointDiffY = mouseY - this.y;
+            this.isBeingDragged = true;
+        }
+        
+    }
+
+    drag(){
+        this.x = mouseX + this.dragPointDiffX;
+        this.y = mouseY + this.dragPointDiffY;
     }
 }
