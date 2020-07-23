@@ -26,14 +26,14 @@ function setup(){
     canvas.parent('workbench-canvas');
     background(32);
 
-    //initialiseQuarkTraps(quarks);
-    testTrap = new QuarkTrapezoid(100,100,6,{'colour':'cyan', 'name':'test'});
+    initialiseQuarkTraps(quarks);
+    //testTrap = new QuarkTrapezoid(100,100,6,{'colour':'cyan', 'name':'test'});
 }
 
 function draw(){
     background(32);
-    testTrap.update()
-    //quarkTraps.forEach(quark =>{
-    //    quark.update();
-    //})
+    //testTrap.update()
+    quarkTraps.forEach(quark =>{
+        quark.update();
+    })
 }
