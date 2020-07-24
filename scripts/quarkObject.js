@@ -1,3 +1,10 @@
+mouseUnpressed = false;
+
+function mouseReleased(){
+    mouseUnpressed = true;
+}
+
+
 class QuarkTrapezoid{
     constructor(x,y,dilation,props){
         this.props = props; //name, colour, mass, charge, spin
@@ -13,13 +20,14 @@ class QuarkTrapezoid{
         this.dragPointDiffX;
         this.dragPointDiffY;
 
-        //These are used for all translations, so that the rotate() and scale() functions *set* those properties, not *add to* those properties (useful for animations, cause I feel like making those myself)
+        //Origin vertices are used for all translations, so that the rotate() and scale() functions *set* those properties, not *add to* those properties (useful for animations, cause I feel like making those myself)
         
         this.originVertices = [createVector(-10,5),
                                createVector(-6,-5),
                                createVector(6,-5),
                                createVector(10,5)];
 
+        
         this.transformedVertices = this.originVertices.valueOf();
 
         //Copy origin vertices - these ones are actually drawn
@@ -34,11 +42,12 @@ class QuarkTrapezoid{
     }
 
     update(){
-        this.checkIfDragged();
-        if(this.isBeingDragged){
-            this.drag();
+        if(!this.isBeingDragged){
+            this.checkIfDragged();
         }
-
+        if(this.isBeingDragged){
+            this.drag(); //Update position relative to mouse
+        }
         this.drawTrap();
     }
 
@@ -119,17 +128,19 @@ class QuarkTrapezoid{
     checkIfDragged(){
         if(mouseIsPressed && collidePointPoly(mouseX, mouseY, this.drawnVertices)){
             console.log(`Clicked on trapezoid ${this.props['name']} ${this.props['colour']}`);
-            this.dragPointDiffX = mouseX - this.x;
+            this.dragPointDiffX = mouseX - this.x; //Make sure object is dragged relative to the point at which it was clicked
             this.dragPointDiffY = mouseY - this.y;
-            this.isBeingDragged = true;
-        }
-        else{
-            this.isBeingDragged = false;
+            this.isBeingDragged = true; //Set drag flag
         }
     }
 
     drag(){
-        this.x = mouseX + this.dragPointDiffX;
-        this.y = mouseY + this.dragPointDiffY;
+        this.x = mouseX - this.dragPointDiffX;
+        this.y = mouseY - this.dragPointDiffY;
+        if(mouseUnpressed){
+            //If mouse is released, stop dragging
+            this.isBeingDragged = false;
+            mouseUnpressed = false;
+        }
     }
 }
