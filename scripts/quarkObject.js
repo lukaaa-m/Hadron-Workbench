@@ -1,10 +1,3 @@
-mouseUnpressed = false;
-
-function mouseReleased(){
-    mouseUnpressed = true;
-}
-
-
 class QuarkTrapezoid{
     constructor(x,y,dilation,props){
         this.props = props; //name, colour, mass, charge, spin
@@ -32,7 +25,6 @@ class QuarkTrapezoid{
 
         //Copy origin vertices - these ones are actually drawn
         this.drawnVertices = this.originVertices.valueOf();
-        //Translate drawnVertices to actual shape position (not at origin)
         
         //I added the x and y to the drawn vertices here but for some reason I didn't need to, so just in case things break, add it back in here
 
@@ -42,13 +34,8 @@ class QuarkTrapezoid{
     }
 
     update(){
-        if(!this.isBeingDragged){
-            this.checkIfDragged();
-        }
-        if(this.isBeingDragged){
-            this.drag(); //Update position relative to mouse
-        }
         this.drawTrap();
+
     }
 
     drawTrap(){
@@ -125,22 +112,4 @@ class QuarkTrapezoid{
         this.transformedVertices = newVertices;
     }
 
-    checkIfDragged(){
-        if(mouseIsPressed && collidePointPoly(mouseX, mouseY, this.drawnVertices)){
-            console.log(`Clicked on trapezoid ${this.props['name']} ${this.props['colour']}`);
-            this.dragPointDiffX = mouseX - this.x; //Make sure object is dragged relative to the point at which it was clicked
-            this.dragPointDiffY = mouseY - this.y;
-            this.isBeingDragged = true; //Set drag flag
-        }
-    }
-
-    drag(){
-        this.x = mouseX - this.dragPointDiffX;
-        this.y = mouseY - this.dragPointDiffY;
-        if(mouseUnpressed){
-            //If mouse is released, stop dragging
-            this.isBeingDragged = false;
-            mouseUnpressed = false;
-        }
-    }
 }
